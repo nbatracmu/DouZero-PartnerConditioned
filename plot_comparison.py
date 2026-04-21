@@ -55,7 +55,8 @@ def main():
     configs = {
         'Baseline': 'baselines/baseline_logs.csv',
         'Frozen': 'baselines/frozen_logs.csv',
-        'PC50': 'douzero_checkpoints/partner_conditioned_50/logs.csv'
+        'PC50': 'douzero_checkpoints/partner_conditioned_50/logs.csv',
+        'PC30': 'douzero_checkpoints/partner_conditioned_30/logs.csv'
     }
     
     # Load data
@@ -74,7 +75,8 @@ def main():
 
     # Set up the plot: Mean returns and Loss for Peasant Up
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-    colors = {'Baseline': '#2196F3', 'Frozen': '#FF9800', 'PC50': '#4CAF50'}
+    colors = {'Baseline': '#2196F3', 'Frozen': '#FF9800', 'PC50': '#4CAF50', 'PC30': '#9C27B0'}
+
     
     window = 200
     
@@ -109,10 +111,12 @@ def main():
     ax.grid(True, alpha=0.2)
     ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'{x/1e6:.0f}M'))
     
-    plt.suptitle('Baseline vs. Frozen vs. Partner-Conditioned (PC50)', fontsize=15, fontweight='bold', y=1.02)
+    plt.suptitle('Baseline vs. Frozen vs. Partner-Conditioned (PC50 & PC30)', fontsize=15, fontweight='bold', y=1.02)
+
     plt.tight_layout()
     
-    path = os.path.join(output_dir, 'fig_comparison_curves.png')
+    path = os.path.join(output_dir, 'fig_comparison_curves_with_pc30.png')
+
     plt.savefig(path, dpi=300, bbox_inches='tight')
     plt.close()
     print(f"\nSaved comparative plot to: {path}")
