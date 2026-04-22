@@ -1,21 +1,21 @@
 {
-  "timestamp": "2026-04-15T18:33:03.912899",
+  "timestamp": "2026-04-22T00:22:32.853503",
   "configs": {
-    "pc50": "douzero_checkpoints/partner_conditioned_50"
+    "pr50": "douzero_checkpoints/partner_random_50"
   },
   "cross_play": {
-    "('pc50', 'pc50')": {
+    "('pr50', 'pr50')": {
       "wp": 0,
       "adp": 0
     }
   },
   "behavioral": {
-    "pc50": {
-      "peasant_win_rate": 0.476,
-      "peasant_pass_rate": 0.4539109978435601,
-      "partner_enabling_pass_rate": 0.477498488382137,
-      "landlord_block_rate": 0.5038052843193567,
-      "mean_cards_per_play": 1.9465824238943137,
+    "pr50": {
+      "peasant_win_rate": 0.341,
+      "peasant_pass_rate": 0.5600343053173242,
+      "partner_enabling_pass_rate": 0.3153905053598775,
+      "landlord_block_rate": 0.2928849902534113,
+      "mean_cards_per_play": 1.7827485380116959,
       "total_games": 1000
     }
   }
