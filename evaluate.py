@@ -1,5 +1,7 @@
 import os 
+import json
 import argparse
+from pathlib import Path
 
 from douzero.evaluation.simulation import evaluate
 
@@ -21,8 +23,16 @@ if __name__ == '__main__':
     os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_device
 
-    evaluate(args.landlord,
+    results = evaluate(args.landlord,
              args.landlord_up,
              args.landlord_down,
              args.eval_data,
              args.num_workers)
+    os.makedirs("results", exist_ok=True)
+    landlord_cfg = Path(args.landlord).parent.name
+    peasant_cfg = Path(args.landlord_up).parent.name
+    output_path = f"results/{landlord_cfg}__vs__{peasant_cfg}.json"
+    with open(output_path, "w") as f:
+        json.dump(results, f, indent=2)
+
+    print(f"Saved evaluation JSON to {output_path}")
