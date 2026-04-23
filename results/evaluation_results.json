@@ -1,21 +1,108 @@
 {
-  "timestamp": "2026-04-22T00:22:32.853503",
+  "timestamp": "2026-04-23T19:01:17.715347",
   "configs": {
-    "pr50": "douzero_checkpoints/partner_random_50"
+    "pr50": "douzero_checkpoints/partner_random_50",
+    "pc50": "douzero_checkpoints/partner_conditioned_50",
+    "pc30": "douzero_checkpoints/partner_conditioned_30",
+    "pr30": "douzero_checkpoints/pr30"
   },
   "cross_play": {
     "('pr50', 'pr50')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pr50', 'pc50')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pr50', 'pc30')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pr50', 'pr30')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pc50', 'pr50')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pc50', 'pc50')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pc50', 'pc30')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pc50', 'pr30')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pc30', 'pr50')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pc30', 'pc50')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pc30', 'pc30')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pc30', 'pr30')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pr30', 'pr50')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pr30', 'pc50')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pr30', 'pc30')": {
+      "wp": 0,
+      "adp": 0
+    },
+    "('pr30', 'pr30')": {
       "wp": 0,
       "adp": 0
     }
   },
   "behavioral": {
     "pr50": {
-      "peasant_win_rate": 0.341,
-      "peasant_pass_rate": 0.5600343053173242,
-      "partner_enabling_pass_rate": 0.3153905053598775,
-      "landlord_block_rate": 0.2928849902534113,
-      "mean_cards_per_play": 1.7827485380116959,
+      "peasant_win_rate": 0.528,
+      "peasant_pass_rate": 0.4848497206476082,
+      "partner_enabling_pass_rate": 0.47455631255782654,
+      "landlord_block_rate": 0.5041165294490184,
+      "mean_cards_per_play": 1.9289898670044332,
+      "total_games": 1000
+    },
+    "pc50": {
+      "peasant_win_rate": 0.526,
+      "peasant_pass_rate": 0.4793405168921656,
+      "partner_enabling_pass_rate": 0.4694498436575678,
+      "landlord_block_rate": 0.501750564070645,
+      "mean_cards_per_play": 1.8712362872481132,
+      "total_games": 1000
+    },
+    "pc30": {
+      "peasant_win_rate": 0.504,
+      "peasant_pass_rate": 0.4839937497495893,
+      "partner_enabling_pass_rate": 0.46158940397350995,
+      "landlord_block_rate": 0.5130833139218883,
+      "mean_cards_per_play": 1.8178430002329373,
+      "total_games": 1000
+    },
+    "pr30": {
+      "peasant_win_rate": 0.502,
+      "peasant_pass_rate": 0.49491058031550345,
+      "partner_enabling_pass_rate": 0.47549983611930513,
+      "landlord_block_rate": 0.5685266961059815,
+      "mean_cards_per_play": 1.839421918908069,
       "total_games": 1000
     }
   }
