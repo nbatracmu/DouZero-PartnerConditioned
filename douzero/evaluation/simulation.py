@@ -1,7 +1,9 @@
 import multiprocessing as mp
 import pickle
+from datetime import datetime
 
 from douzero.env.game import GameEnv
+
 
 def load_card_play_models(card_play_model_path_dict):
     players = {}
@@ -18,8 +20,8 @@ def load_card_play_models(card_play_model_path_dict):
             players[position] = DeepAgent(position, card_play_model_path_dict[position])
     return players
 
-def mp_simulate(card_play_data_list, card_play_model_path_dict, q):
 
+def mp_simulate(card_play_data_list, card_play_model_path_dict, q):
     players = load_card_play_models(card_play_model_path_dict)
 
     env = GameEnv(players)
@@ -29,11 +31,13 @@ def mp_simulate(card_play_data_list, card_play_model_path_dict, q):
             env.step()
         env.reset()
 
-    q.put((env.num_wins['landlord'],
-           env.num_wins['farmer'],
-           env.num_scores['landlord'],
-           env.num_scores['farmer']
-         ))
+    q.put((
+        env.num_wins['landlord'],
+        env.num_wins['farmer'],
+        env.num_scores['landlord'],
+        env.num_scores['farmer']
+    ))
+
 
 def data_allocation_per_worker(card_play_data_list, num_workers):
     card_play_data_list_each_worker = [[] for k in range(num_workers)]
@@ -42,10 +46,12 @@ def data_allocation_per_worker(card_play_data_list, num_workers):
 
     return card_play_data_list_each_worker
 
-def evaluate(landlord, landlord_up, landlord_down, eval_data, num_workers):
 
+def evaluate(landlord, landlord_up, landlord_down, eval_data, num_workers):
     with open(eval_data, 'rb') as f:
         card_play_data_list = pickle.load(f)
+
+    total_games = len(card_play_data_list)
 
     card_play_data_list_each_worker = data_allocation_per_worker(
         card_play_data_list, num_workers)
@@ -54,7 +60,8 @@ def evaluate(landlord, landlord_up, landlord_down, eval_data, num_workers):
     card_play_model_path_dict = {
         'landlord': landlord,
         'landlord_up': landlord_up,
-        'landlord_down': landlord_down}
+        'landlord_down': landlord_down
+    }
 
     num_landlord_wins = 0
     num_farmer_wins = 0
@@ -66,8 +73,8 @@ def evaluate(landlord, landlord_up, landlord_down, eval_data, num_workers):
     processes = []
     for card_paly_data in card_play_data_list_each_worker:
         p = ctx.Process(
-                target=mp_simulate,
-                args=(card_paly_data, card_play_model_path_dict, q))
+            target=mp_simulate,
+            args=(card_paly_data, card_play_model_path_dict, q))
         p.start()
         processes.append(p)
 
@@ -82,7 +89,29 @@ def evaluate(landlord, landlord_up, landlord_down, eval_data, num_workers):
         num_farmer_scores += result[3]
 
     num_total_wins = num_landlord_wins + num_farmer_wins
+
+    results = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "landlord_model": landlord,
+        "landlord_up_model": landlord_up,
+        "landlord_down_model": landlord_down,
+        "eval_data": eval_data,
+        "total_games": total_games,
+        "wp": {
+            "landlord": num_landlord_wins / num_total_wins,
+            "farmers": num_farmer_wins / num_total_wins
+        },
+        "adp": {
+            "landlord": num_landlord_scores / num_total_wins,
+            "farmers": 2 * num_farmer_scores / num_total_wins
+        }
+    }
+
     print('WP results:')
-    print('landlord : Farmers - {} : {}'.format(num_landlord_wins / num_total_wins, num_farmer_wins / num_total_wins))
+    print('landlord : Farmers - {} : {}'.format(
+        results["wp"]["landlord"], results["wp"]["farmers"]))
     print('ADP results:')
-    print('landlord : Farmers - {} : {}'.format(num_landlord_scores / num_total_wins, 2 * num_farmer_scores / num_total_wins)) 
+    print('landlord : Farmers - {} : {}'.format(
+        results["adp"]["landlord"], results["adp"]["farmers"]))
+
+    return results
