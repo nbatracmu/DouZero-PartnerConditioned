@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-23T06:18:53.506572",
+  "landlord_model": "douzero_checkpoints/partner_conditioned_30/landlord_weights_50035200.ckpt",
+  "landlord_up_model": "douzero_checkpoints/partner_conditioned_50/landlord_up_weights_50035200.ckpt",
+  "landlord_down_model": "douzero_checkpoints/partner_conditioned_50/landlord_down_weights_50035200.ckpt",
+  "eval_data": "eval_data.pkl",
+  "total_games": 10000,
+  "wp": {
+    "landlord": 0.477,
+    "farmers": 0.523
+  },
+  "adp": {
+    "landlord": -0.0992,
+    "farmers": 0.0992
+  }
+}
