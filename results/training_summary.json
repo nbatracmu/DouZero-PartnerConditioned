@@ -1,0 +1,10 @@
+{
+  "total_frames": 50032000.0,
+  "total_entries": 15636,
+  "final_return_landlord": -0.07879752799868583,
+  "final_loss_landlord": 1.6079833295345307,
+  "final_return_landlord_up": 0.0789380253404379,
+  "final_loss_landlord_up": 1.8933929924964905,
+  "final_return_landlord_down": 0.07899109816551209,
+  "final_loss_landlord_down": 1.898327917575836
+}
