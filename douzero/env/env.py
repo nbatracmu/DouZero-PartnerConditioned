@@ -110,12 +110,18 @@ class Env:
             else:
                 return 1.0
         else:
+            # Peasants win
+            bonus = 0.0
+            # NEW: Cooperation bonus if partner (landlord_down) was the one to finish
+            if len(self._env.info_sets['landlord_down'].player_hand_cards) == 0:
+                bonus = 0.2
+                
             if self.objective == 'adp':
-                return -2.0 ** bomb_num
+                return -(2.0 ** bomb_num) - bonus
             elif self.objective == 'logadp':
-                return -bomb_num - 1.0
+                return -bomb_num - 1.0 - bonus
             else:
-                return -1.0
+                return -1.0 - bonus
 
     @property
     def _game_infoset(self):

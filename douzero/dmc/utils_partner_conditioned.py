@@ -90,9 +90,16 @@ def act_partner_conditioned(i, device, free_queue, full_queue,
             tracker.reset()
 
             for pos in randomized_positions:
+                current_pool = pool_dir
+                # NEW: Check for pro/noob sub-pools
+                pro_dir = os.path.join(pool_dir, 'pro')
+                noob_dir = os.path.join(pool_dir, 'noob')
+                if os.path.exists(pro_dir) and os.path.exists(noob_dir):
+                    current_pool = pro_dir if random.random() < 0.5 else noob_dir
+
                 if random.random() < partner_random_prob:
                     pool_weights = load_random_partner_weights(
-                        pool_dir, pos, device, sample_strategy
+                        current_pool, pos, device, sample_strategy
                     )
                     if pool_weights is not None:
                         local_nets[pos].load_state_dict(pool_weights)
