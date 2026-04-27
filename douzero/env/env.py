@@ -114,7 +114,7 @@ class Env:
             bonus = 0.0
             # NEW: Cooperation bonus if partner (landlord_down) was the one to finish
             if len(self._env.info_sets['landlord_down'].player_hand_cards) == 0:
-                bonus = 0.2
+                bonus = 0.5
                 
             if self.objective == 'adp':
                 return -(2.0 ** bomb_num) - bonus
